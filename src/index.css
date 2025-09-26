@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+/* Set Poppins as the default font family */
+@layer base {
+  * {
+    font-family: 'Poppins', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'Noto Sans', sans-serif;
+  }
+}
