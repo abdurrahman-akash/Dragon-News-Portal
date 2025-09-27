@@ -1,22 +1,37 @@
 import { Outlet } from "react-router-dom";
 import Header from "../components/Header.jsx";
 import LatestNews from "../components/LatestNews.jsx";
+import Navbar from "../components/Navbar.jsx";
+import LeftAside from "../components/LeftAside.jsx";
+import RightAside from "../components/RightAside.jsx";
 
 const HomeLayout = () => {
   return (
-    <div>
+    <div className="min-h-screen">
       <header>
         <Header />
-        <section className="w-11/12 mx-auto my-3">
+        <section className="w-11/12 max-w-7xl mx-auto my-3 px-2 sm:px-4">
           <LatestNews />
         </section>
+        <nav className="w-11/12 max-w-7xl mx-auto my-3 px-2 sm:px-4">
+          <Navbar />
+        </nav>
       </header>
-        <main>
-            <section className="left_nav"></section>
-            <section className="main">
+        <main className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-12 gap-4 w-11/12 max-w-7xl mx-auto my-3 px-2 sm:px-4">
+            {/* Left Aside - Hidden on mobile, full width on tablet, 3 cols on desktop */}
+            <aside className="hidden md:block md:col-span-1 lg:col-span-3 order-1 md:order-1 sticky">
+              <LeftAside />
+            </aside>
+            
+            {/* Main Content - Full width on mobile, 2 cols on tablet, 6 cols on desktop */}
+            <section className="col-span-1 md:col-span-2 lg:col-span-6 order-2 md:order-2">
                 <Outlet />
             </section>
-            <section className="right_nav"></section>
+            
+            {/* Right Aside - Full width on mobile, 1 col on tablet, 3 cols on desktop */}
+            <aside className="col-span-1 md:col-span-1 lg:col-span-3 order-3 md:order-3 sticky">
+              <RightAside />
+            </aside>
         </main>
     </div>
   )
