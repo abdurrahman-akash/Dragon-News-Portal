@@ -1,7 +1,21 @@
-import user from '../assets/user.png'
+import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import AuthContext from '../contexts/AuthContext';
+import userPhoto from '../assets/user.png';
 
 const Navbar = () => {
+  const { user, logoutUser } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    logoutUser()
+      .then(() => {
+        console.log("User logged out successfully");
+      })
+      .catch((error) => {
+        console.error("Error during logout:", error);
+      });
+  }
+
   return (
     <div className='flex justify-between items-center p-2 sm:p-4 mb-4'>
       <div className='hidden md:block'></div>
@@ -29,8 +43,17 @@ const Navbar = () => {
       
       {/* Login Section */}
       <div className='flex gap-2 sm:gap-4 items-center login-btn'>
-        <img className="w-8 h-8 sm:w-10 sm:h-10" src={user} alt="User Avatar" />
-        <Link to="/auth/login" className='btn btn-primary text-xs sm:text-sm px-4 sm:px-10'>Login</Link>
+        {user ? (
+          <img className="w-8 h-8 sm:w-10 sm:h-10" src={user.photoURL} alt="User Avatar" />
+        ) : (
+          <img className="w-8 h-8 sm:w-10 sm:h-10" src={userPhoto} alt="Default User Avatar" />
+        )}
+        {user ? (
+          <button onClick={handleLogout} className='btn btn-primary text-xs sm:text-sm px-4 sm:px-10'>Logout</button>
+        ) : (
+          <Link to="/auth/login" className='btn btn-primary text-xs sm:text-sm px-4 sm:px-10'>Login</Link>
+        )}
+        
       </div>
     </div>
   )
