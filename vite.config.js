@@ -5,5 +5,5 @@ import tailwindcss from '@tailwindcss/vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-  base: '/Dragon-News-Portal/', // Match your GitHub repository name exactly
+  // Remove base for Vercel deployment
 })

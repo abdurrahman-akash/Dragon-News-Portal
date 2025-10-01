@@ -1,4 +1,4 @@
-import { createHashRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import HomeLayout from "../layouts/HomeLayout.jsx";
 import Home from "../pages/Home.jsx";
 import CategoryNews from "../pages/CategoryNews.jsx";
@@ -8,7 +8,7 @@ import Register from "../pages/Register.jsx";
 import NewsDetails from "../pages/NewsDetails.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
@@ -20,7 +20,7 @@ const router = createHashRouter([
       {
         path: "/category/:id",
         element: <CategoryNews />,
-        loader: () => fetch("/Dragon-News-Portal/news.json"),
+        loader: () => fetch("/news.json"),
       }
     ],
   },
@@ -41,7 +41,7 @@ const router = createHashRouter([
   {
     path: "/news-details/:id",
     element: <PrivateRoute><NewsDetails /></PrivateRoute>,
-    loader: () => fetch("/Dragon-News-Portal/news.json"),
+    loader: () => fetch("/news.json"),
   },
   {
     path: "/*",
