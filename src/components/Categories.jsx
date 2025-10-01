@@ -1,7 +1,7 @@
 import { use } from "react";
 import { NavLink } from "react-router-dom";
 
-const categoryPromise = fetch(`${import.meta.env.BASE_URL}categories.json`).then((res) => res.json());
+const categoryPromise = fetch("/Dragon-News-Portal/categories.json").then((res) => res.json());
 const Categories = () => {
   const categories = use(categoryPromise);
   return (

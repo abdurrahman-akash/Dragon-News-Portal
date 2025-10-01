@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       {
         path: "/category/:id",
         element: <CategoryNews />,
-        loader: () => fetch(`${import.meta.env.BASE_URL}news.json`),
+        loader: () => fetch("/Dragon-News-Portal/news.json"),
       }
     ],
   },
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
   {
     path: "/news-details/:id",
     element: <PrivateRoute><NewsDetails /></PrivateRoute>,
-    loader: () => fetch(`${import.meta.env.BASE_URL}news.json`),
+    loader: () => fetch("/Dragon-News-Portal/news.json"),
   },
   {
     path: "/*",
