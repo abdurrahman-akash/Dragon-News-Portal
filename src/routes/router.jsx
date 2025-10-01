@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import HomeLayout from "../layouts/HomeLayout.jsx";
 import Home from "../pages/Home.jsx";
 import CategoryNews from "../pages/CategoryNews.jsx";
@@ -8,7 +8,7 @@ import Register from "../pages/Register.jsx";
 import NewsDetails from "../pages/NewsDetails.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <HomeLayout />,
@@ -47,8 +47,6 @@ const router = createBrowserRouter([
     path: "/*",
     element: <div>404 Not Found</div>,
   }
-], {
-  basename: "/Dragon-News-Portal"
-});
+]);
 
 export default router;
