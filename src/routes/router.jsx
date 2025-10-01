@@ -20,7 +20,7 @@ const router = createBrowserRouter([
       {
         path: "/category/:id",
         element: <CategoryNews />,
-        loader: () => fetch("/news.json"),
+        loader: () => fetch(`${import.meta.env.BASE_URL}news.json`),
       }
     ],
   },
@@ -41,12 +41,14 @@ const router = createBrowserRouter([
   {
     path: "/news-details/:id",
     element: <PrivateRoute><NewsDetails /></PrivateRoute>,
-    loader: () => fetch("/news.json"),
+    loader: () => fetch(`${import.meta.env.BASE_URL}news.json`),
   },
   {
     path: "/*",
     element: <div>404 Not Found</div>,
   }
-]);
+], {
+  basename: "/Dragon-News-Portal"
+});
 
 export default router;
