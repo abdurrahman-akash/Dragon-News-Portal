@@ -33,17 +33,19 @@ const NewsCard = ({ news }) => {
       {/* Title */}
       <div className="px-3 sm:px-4 py-3 sm:py-4">
         <h2 className="text-base sm:text-lg lg:text-xl font-bold text-primary cursor-pointer hover:text-primary-focus transition-colors leading-tight">
-          {title}
+          <Link to={`/news-details/${id}`}>{title}</Link>
         </h2>
       </div>
 
       {/* Image */}
       <div className="px-3 sm:px-4 py-2">
-        <img
-          src={thumbnail_url}
-          alt={title}
-          className="w-full h-40 sm:h-48 lg:h-56 object-cover rounded-md"
-        />
+        <Link to={`/news-details/${id}`}>
+          <img
+            src={thumbnail_url}
+            alt={title}
+            className="w-full h-40 sm:h-48 lg:h-56 object-cover rounded-md"
+          />
+        </Link>
       </div>
 
       {/* Details */}

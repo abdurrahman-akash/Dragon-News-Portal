@@ -1,15 +1,35 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import AuthContext from '../contexts/AuthContext';
+import { Navigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Register = () => {
-  const [error, setError] = useState(false);
+  const authContext = useContext(AuthContext);
+  const { registerUser, loading, setLoading } = authContext;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
-    setError(true);
+
+    try {
+      await registerUser(email, password);
+      toast.success('Account created successfully!');
+      // You can add profile update logic here if needed
+    } catch (error) {
+      toast.error(error.message || 'Registration failed');
+      console.error('Registration error:', error);
+    }
+    finally{
+      setLoading(false);
+    }
+  }
+
+  if(authContext.user){
+    return <Navigate to="/" />
   }
 
   return (
@@ -68,13 +88,16 @@ const Register = () => {
               <span className='text-sm'>Accept Term & Conditions</span>
             </div>
 
-            {error && (
-              <div className='text-red-500 text-sm'>
-                Invalid email or password
-              </div>
-            )}
-
-            <button type="submit" className='btn btn-primary w-full'>Register</button>
+            <button type="submit" className='btn btn-primary w-full' disabled={loading}>
+              {loading ? (
+                <>
+                  <span className="loading loading-spinner loading-sm"></span>
+                  Creating Account...
+                </>
+              ) : (
+                'Register'
+              )}
+            </button>
 
             <div className='text-center'>
               <span className='text-sm'>Already have an account? </span>

@@ -1,15 +1,31 @@
-import { useState } from 'react';
+import { useContext } from 'react';
+import AuthContext from '../contexts/AuthContext';
+import { Navigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const Login = () => {
-  const [error, setError] = useState(false);
+  const authContext = useContext(AuthContext);
+  const { loginUser, loading, setLoading } = authContext;
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-    console.log(email, password);
-    setError(true);
+
+    try {
+      await loginUser(email, password);
+      toast.success('Login successful!');
+    } catch (error) {
+      toast.error('Invalid email or password');
+      console.error('Login error:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if(authContext.user){
+    return <Navigate to="/" />
   }
 
   return (
@@ -40,13 +56,16 @@ const Login = () => {
                 <a href="#" className='link link-hover'>Forgot Password?</a>
               </div>
 
-              {error && (
-                <div className='mt-4 text-red-500'>
-                  Invalid email or password
-                </div>
-              )}
-
-              <button type="submit" className='btn btn-primary mt-4'>Login</button>
+              <button type="submit" className='btn btn-primary mt-4' disabled={loading}>
+                {loading ? (
+                  <>
+                    <span className="loading loading-spinner loading-sm"></span>
+                    Logging in...
+                  </>
+                ) : (
+                  'Login'
+                )}
+              </button>
 
               <div className='mt-4 text-center'>
                 <span>Don't have an account? </span>

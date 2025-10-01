@@ -1,19 +1,19 @@
 import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import AuthContext from '../contexts/AuthContext';
+import AuthContext from '../contexts/AuthContext.jsx';
 import userPhoto from '../assets/user.png';
+import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const { user, logoutUser } = useContext(AuthContext);
+  const { user, logoutUser, loading } = useContext(AuthContext);
 
-  const handleLogout = () => {
-    logoutUser()
-      .then(() => {
-        console.log("User logged out successfully");
-      })
-      .catch((error) => {
-        console.error("Error during logout:", error);
-      });
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      toast.success('Logged out successfully');
+    } catch (error) {
+      console.error("Error during logout:", error);
+    }
   }
 
   return (
@@ -44,16 +44,43 @@ const Navbar = () => {
       {/* Login Section */}
       <div className='flex gap-2 sm:gap-4 items-center login-btn'>
         {user ? (
-          <img className="w-8 h-8 sm:w-10 sm:h-10" src={user.photoURL} alt="User Avatar" />
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full">
+                <img src={user.photoURL || userPhoto} alt="User Avatar" />
+              </div>
+            </div>
+            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+              <li>
+                <Link to="/profile" className="justify-between">
+                  Profile
+                </Link>
+              </li>
+              <li>
+                
+              </li>
+            </ul>
+          </div>
         ) : (
-          <img className="w-8 h-8 sm:w-10 sm:h-10" src={userPhoto} alt="Default User Avatar" />
+            <>
+              <img className="w-8 h-8 sm:w-10 sm:h-10" src={userPhoto} alt="Default User Avatar" />
+              
+            </>
         )}
         {user ? (
-          <button onClick={handleLogout} className='btn btn-primary text-xs sm:text-sm px-4 sm:px-10'>Logout</button>
-        ) : (
-          <Link to="/auth/login" className='btn btn-primary text-xs sm:text-sm px-4 sm:px-10'>Login</Link>
-        )}
-        
+              <button onClick={handleLogout} disabled={loading} className='btn btn-primary text-xs sm:text-sm px-4 sm:px-10'>
+                {loading ? (
+                  <>
+                    <span className="loading loading-spinner loading-xs"></span>
+                    Logging out...
+                  </>
+                  ) : (
+                    'Logout'
+                  )}
+                </button>
+              ) : (
+                <Link to="/auth/login" className='btn btn-primary text-xs sm:text-sm px-4 sm:px-10'>Login</Link>
+              )}
       </div>
     </div>
   )
