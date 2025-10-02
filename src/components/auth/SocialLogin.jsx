@@ -1,7 +1,7 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 import { GoogleAuthProvider, GithubAuthProvider } from "firebase/auth";
-import AuthContext from "../contexts/AuthContext";
+import AuthContext from "../../contexts/AuthContext";
 import { useContext } from "react";
 import toast from "react-hot-toast";
 

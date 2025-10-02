@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import AuthContext from '../contexts/AuthContext.jsx';
-import userPhoto from '../assets/user.png';
+import AuthContext from '../../contexts/AuthContext.jsx';
+import userPhoto from '../../assets/user.png';
 import toast from "react-hot-toast";
 
 const Navbar = () => {

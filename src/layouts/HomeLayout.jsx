@@ -1,9 +1,11 @@
 import { Outlet } from "react-router-dom";
-import Header from "../components/Header.jsx";
-import LatestNews from "../components/LatestNews.jsx";
-import Navbar from "../components/Navbar.jsx";
-import LeftAside from "../components/LeftAside.jsx";
-import RightAside from "../components/RightAside.jsx";
+import { 
+  Header, 
+  LatestNews, 
+  Navbar, 
+  LeftAside, 
+  RightAside 
+} from "../components";
 
 const HomeLayout = () => {
   return (

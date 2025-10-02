@@ -1,11 +1,12 @@
 import { useContext } from 'react';
 import AuthContext from '../contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const Register = () => {
   const authContext = useContext(AuthContext);
-  const { registerUser, loading, setLoading } = authContext;
+  const { registerUser, loading, setLoading, updateUser, setUser } = authContext;
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,9 +17,17 @@ const Register = () => {
     const password = form.password.value;
 
     try {
-      await registerUser(email, password);
-      toast.success('Account created successfully!');
-      // You can add profile update logic here if needed
+      await registerUser(email, password)
+        .then(async (result) => {
+          const loggedUser = result.user;
+          // console.log(loggedUser);
+          await updateUser({ displayName: name, photoURL: photo })
+            .then(() => {
+              setUser({...loggedUser, displayName: name, photoURL: photo});
+              navigate('/');
+            });
+          toast.success('Account created successfully!');
+        });
     } catch (error) {
       toast.error(error.message || 'Registration failed');
       console.error('Registration error:', error);
@@ -26,11 +35,7 @@ const Register = () => {
     finally{
       setLoading(false);
     }
-  }
-
-  if(authContext.user){
-    return <Navigate to="/" />
-  }
+  };
 
   return (
     <div className='flex items-center justify-center min-h-[80vh] px-4'>

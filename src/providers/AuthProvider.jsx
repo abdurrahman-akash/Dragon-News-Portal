@@ -7,6 +7,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../firebase/firebase.config.js";
 import { useEffect } from "react";
@@ -27,6 +28,10 @@ const AuthProvider = ({ children }) => {
     setLoading(true);
     return await createUserWithEmailAndPassword(auth, email, password);
   }
+
+  const updateUser = (updatedData) => {
+    return updateProfile(auth.currentUser, updatedData);
+  };
 
   const socialSignIn = async (provider) => {
     setLoading(true);
@@ -52,6 +57,7 @@ const AuthProvider = ({ children }) => {
     logoutUser,
     loading,
     setLoading,
+    updateUser,
   };
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

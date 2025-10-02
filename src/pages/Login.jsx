@@ -1,11 +1,13 @@
 import { useContext } from 'react';
 import AuthContext from '../contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 const Login = () => {
   const authContext = useContext(AuthContext);
   const { loginUser, loading, setLoading } = authContext;
+  const location = useLocation();
+  const navigate = useNavigate(location);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,18 +16,17 @@ const Login = () => {
     const password = form.password.value;
 
     try {
-      await loginUser(email, password);
-      toast.success('Login successful!');
+      await loginUser(email, password)
+        .then(() => {
+          navigate(`${location.state ? location.state : '/'}`);
+          toast.success('Login successful!');
+        });
     } catch (error) {
       toast.error('Invalid email or password');
       console.error('Login error:', error);
     } finally {
       setLoading(false);
     }
-  }
-
-  if(authContext.user){
-    return <Navigate to="/" />
   }
 
   return (

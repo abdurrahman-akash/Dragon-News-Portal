@@ -1,6 +1,6 @@
-import swimmingImage from '../assets/swimming.png';
-import classImage from '../assets/class.png';
-import playImage from '../assets/playground.png';
+import swimmingImage from '../../assets/swimming.png';
+import classImage from '../../assets/class.png';
+import playImage from '../../assets/playground.png';
 
 const QZone = () => {
   return (

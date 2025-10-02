@@ -1,9 +1,7 @@
 import { useLoaderData, useParams } from "react-router-dom";
-import Header from "../components/Header.jsx";
-import NewsDetailsCard from "../components/NewsDetailsCard.jsx";
 import { useEffect } from "react";
 import { useState } from "react";
-import RightAside from "../components/RightAside.jsx";
+import { Header, NewsDetailsCard, RightAside } from "../components";
 import toast from 'react-hot-toast';
 
 const NewsDetails = () => {

@@ -1,5 +1,5 @@
 import FindUsOn from "./FindUsOn.jsx";
-import SocialLogin from "./SocialLogin.jsx";
+import SocialLogin from "../auth/SocialLogin.jsx";
 import QZone from "./QZone.jsx";
 
 const RightAside = () => {
